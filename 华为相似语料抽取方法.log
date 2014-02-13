@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2014.1.26)  12 FEB 2014 18:02
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2014.1.26)  13 FEB 2014 11:27
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -1343,21 +1343,32 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 9.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 9.
- [1
+
+Overfull \hbox (84.93881pt too wide) in paragraph at lines 31--32
+[][][] 
+ []
+
+[1
 
 ]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.54> on input line 60.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 60.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 60.
 LaTeX Font Info:    Font shape `EU1/SimSun(0)/m/sl' in size <10.54> not availab
 le
 (Font)              Font shape `EU1/SimSun(0)/m/it' tried instead on input line
- 35.
- [2] (./华为相似语料抽取方法.aux) ) 
+ 88.
+ [2] [3] (./华为相似语料抽取方法.aux) ) 
 Here is how much of TeX's memory you used:
- 26824 strings out of 493918
- 563397 string characters out of 6148599
- 569811 words of memory out of 5000000
- 29717 multiletter control sequences out of 15000+600000
- 6560 words of font info for 46 fonts, out of 8000000 for 9000
+ 26859 strings out of 493918
+ 563937 string characters out of 6148599
+ 570811 words of memory out of 5000000
+ 29748 multiletter control sequences out of 15000+600000
+ 7492 words of font info for 51 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 63i,6n,60p,10393b,555s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,6n,60p,10393b,552s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 华为相似语料抽取方法.pdf (2 pages).
+Output written on 华为相似语料抽取方法.pdf (3 pages).

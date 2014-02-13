@@ -15,21 +15,84 @@
 
 \begin{tikzpicture}[scale=1,transform shape]
     \tikzstyle{every node} = [draw,shape=rectangle,minimum width=50pt,minimum height=20pt,text width=60pt,text centered,fill=gray!30]
-    \node (a) at (0,0) {计算词的权值};
-    \node (b) at +(3,0) {计算句子的权值}; 
-    \node (c) at +(6,0) {按权值对句子排序};
-    \node (d) at +(9,0) {选择前n个句子作为候选};
+    \node (k) at (0,1.1) [fill=green!30]{华为语料库};
+    \node (x) at (0,0) {预处理};
+    \node (a) at (3,0) {计算词汇的分数};
+    \node (j) at (6,1.5) [fill=green!30]{待抽取语料库};
+    \node (b) at (6,0) {计算句子的分数}; 
+    \node (c) at (9,0) {按分数对句子排序};
+    \node (d) at (12,0) {选择前n个句子作为候选};
+    \draw [->] (k) -- (x);
+    \draw [->] (x) -- (a);
     \draw [->] (a) -- (b);
+    \draw [->] (j) -- (b);
     \draw [->] (b) -- (c);
     \draw [->] (c) -- (d);
 \end{tikzpicture}
 
+
+其中，预处理过程如下：
+
+\begin{tikzpicture}[scale=1,transform shape]
+\tikzstyle{every node} = [draw,shape=rectangle,minimum width=50pt,minimum height=20pt,text width=60pt,text centered,fill=gray!30]
+    \node (a) at (0,0) [fill=green!30]{文本};
+    \node (b) at (3,0) {分词}; 
+    \node (x) at (6,1.1) [fill=green!30]{终止词表};
+    \node (c) at (6,0) {过滤};
+    \node (d) at (9,0) {选择前n个句子作为候选};
+    \draw [->] (a) -- (b);
+    \draw [->] (b) -- (c);
+    \draw [->] (x) -- (c);
+    \draw [->] (c) -- (d);
+\end{tikzpicture}
+
+
 \subsection{分数的定义}
-我们对分数的定义有如下需求：
+我们对句子分数的定义有如下需求：
 \begin{enumerate}
     \item 被抽取的句子中的词在华为语料库中反复出现，频率较高。 
     \item 若源语料库中（新闻，专利）的某个句子中所有的词汇从未来华为语料库中出现过，那么该句子的得分为0。若源语料库中的某个句子与华为语料库中的某句子完全相同，那么该句子应该得到相当高的分数。
     \item 若源语料库中的某一句话的各个词汇分布在华为语料库中不同的句子中，该句子的分数也应该比较高。
+\end{enumerate}
+
+\subsection{词汇分数的定义}
+
+    \begin{equation}
+        WS_i = \log (TF_{ij} \times  \log DCN_i)
+    \end{equation}
+
+其中，$TF_{ij}$指词频(Term Frequency)，$DCN_{i}$指文档覆盖数(Documents Covering Number),$WS_i$表示该词汇$i$的分数(Word Score),分数越高表示该词在文档中越重要，越能代表这个文档的特征。
+
+\begin{equation}
+    TF_{ij}=\frac{n_{ij}}{\sum_k{n_{kj}}}
+\end{equation}
+
+其中，$n_{ij}$是词$i$在文件$d_j$出现的次数，$\sum_k{n_{kj}}$是$d_j$中所有字词出现的次数之和。$TF_{ij}$即词$i$在文件$d_j$中的频率。即在华为语料库中计算各个词出现的频率。
+
+\begin{equation}
+    DCN_{i}=|\{j:t_i\in d_j \}|
+\end{equation}
+
+其中，$|\{j:t_i\in d_j \}|$指包含词语$t_i$的文件数目。
+
+\subsection{句子分数的定义}
+
+\begin{equation}
+    SS=\sum_k WS_k
+\end{equation}
+
+    即句子中各个词汇的分数总和。
+
+\subsection{排序并抽取}
+最终对待抽取语料库中的句子根据分数进行排序，并取出top n即可完成。
+\section{代码说明}
+
+\begin{enumerate}
+    \item PassageP.py：PassageParse，对JSON格式的华为文本进行语法分析，提取出相应的文本信息。 
+    \item GetWordRank.py：删除终止词并计算华为语料库的词汇分数。
+    \item GetExtractCorpus.py：计算句子分数，并且抽取句子。
+    \item Merge.py：融合双语抽取结果。
+    \item Split.py：分离成平行双语语料。
 \end{enumerate}
 
 \end{document}
